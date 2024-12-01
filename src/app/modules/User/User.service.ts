@@ -1,16 +1,17 @@
-import Student from "../student/student.interface";
-import { StudentModel } from "../student/student.model";
+
+import { TStudent } from "../student/student.interface";
+import { Student } from "../student/student.model";
 import { TUser } from "./User.interface";
 import { User } from "./User.model";
 
-const createStudentInToDB = async(password: string, studentData: Student)=>{
+const createStudentInToDB = async(password: string, studentData: TStudent)=>{
 
     const userData: Partial<TUser> = { };
 
     // set default value of user
     userData.password = password || "jshajKWWWs124***";
     userData.role = "student";
-    userData.id = "1810001"
+    userData.id = "1810006"
 
     //create user
     const newUser = await User.create(userData);
@@ -19,7 +20,7 @@ const createStudentInToDB = async(password: string, studentData: Student)=>{
     {
         studentData.id = newUser.id;
         studentData.user = newUser._id
-        const newStudent = await StudentModel.create(studentData);
+        const newStudent = await Student.create(studentData);
         return newStudent;
     }
 }

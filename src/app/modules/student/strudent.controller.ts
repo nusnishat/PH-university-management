@@ -1,5 +1,8 @@
-import { Request, Response } from "express";
+import {  NextFunction, Request, RequestHandler, Response } from "express";
 import { StudentServices } from "./student.service";
+import sendResponse from "../../utils/sendResponse";
+import catchAsync from "../../utils/catchAsync";
+
 
 // const createStudent = async(req: Request, res: Response)=>{
 //     const student = req.body.student;
@@ -19,32 +22,28 @@ import { StudentServices } from "./student.service";
 //     }
 // }
 
-const getStudents = async(req: Request, res: Response)=>{
-    try{
-        const result = await StudentServices.getStudentsFromDB();
-        res.status(200).json({
-            status: true,
-            message: "get students successfully",
-            data: result
-        })
-    }catch(error){
-        console.log(error)
-    }
-}
 
-const getSingleStudents = async(req: Request, res: Response)=>{
-    try{
-        const studentId = req.params.id
-        const result = await StudentServices.getSingleStudentFromDB(parseInt(studentId))
-        res.status(200).json({
-            status: true,
-            message: "got student successfully",
-            data: result
-        })
-    }catch(error){
-        console.log(error)
-    }
-}
+const getStudents: RequestHandler = catchAsync(async(req, res, next)=>{
+    const result = await StudentServices.getStudentsFromDB();
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "got students successfully",
+        data: result,
+    });
+})
+
+const getSingleStudents: RequestHandler = catchAsync(async(req, res, next)=>{
+    const studentId = req.params.id
+    const result = await StudentServices.getSingleStudentFromDB(parseInt(studentId))
+    
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "got student successfully",
+        data: result,
+    });
+})
 
 export const StudentControllers = {
     getStudents,

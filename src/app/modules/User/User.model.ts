@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TUser } from "./User.interface";
-import { boolean } from "joi";
+import bcrypt from "bcrypt"
 
 
 const userSchema = new Schema <TUser>({
@@ -34,4 +34,20 @@ const userSchema = new Schema <TUser>({
     timestamps: true
 }
 );
+userSchema.pre('save', async function (next) {
+    const user = this;
+    // hasing password and save into db
+    user.password = await bcrypt.hash(
+        user.password,
+        Number(12)
+    );
+    next();
+});
+
+//set "" after saving password
+userSchema.post('save', function(doc, next){
+    doc.password = "";
+    next();
+});
+
 export const User = model<TUser>('User', userSchema)

@@ -1,5 +1,5 @@
-import Student from "./student.interface";
-import { StudentModel } from "./student.model";
+
+import { Student } from "./student.model";
 
 // const createStudentToDB = async(student: Student)=>{
 //     const result = await StudentModel.create(student);
@@ -7,12 +7,12 @@ import { StudentModel } from "./student.model";
 // }
 
 const getStudentsFromDB = async()=>{
-    const result = await StudentModel.find();
+    const result = await Student.find();
     return result;
 }
 
 const getSingleStudentFromDB = async(id: number)=>{
-    const result = await StudentModel.findOne({id});
+    const result = await Student.findOne({id});
     return result;
 }
 
