@@ -31,14 +31,25 @@ const getSingleAcademicSemester: RequestHandler = catchAsync(async(req, res, nex
     sendResponse(res, {
         statusCode: 200,
         success: true,
-        message: "got student successfully",
+        message: "got faculty successfully",
         data: result,
     });
 })
+const updateAcademicSemester: RequestHandler = catchAsync(async(req, res, next)=>{
+    const semesterId = req.params.id;
+    const result = await AcademicSemesterServices.updateAcademicSemesterIntoDb(semesterId, req.body);
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "updated faculty successfully",
+        data: result,
+    });
+});
 
 
 export const AcademicSemesterControllers ={
     createAcademicSemester,
     getAcademicSemesters,
-    getSingleAcademicSemester
+    getSingleAcademicSemester,
+    updateAcademicSemester
 }

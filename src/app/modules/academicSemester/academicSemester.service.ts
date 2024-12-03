@@ -23,11 +23,21 @@ const getAcademicSemestersFromDB = async()=>{
 const getSingleAcademicSemesterFromDB = async(id: string)=>{
     const result = await AcademicSemester.findOne({id});
     return result;
-}
+};
+
+const updateAcademicSemesterIntoDb = async(id: string, payload: Partial<TAcademicSemester>)=>{
+    const result = await AcademicSemester.findByIdAndUpdate(
+        {_id: id}, 
+        payload,
+        {new: true}
+    );
+    return result;
+};
 
 
 export const AcademicSemesterServices = {
     createAcademicSemesterIntoDb,
     getAcademicSemestersFromDB,
-    getSingleAcademicSemesterFromDB
+    getSingleAcademicSemesterFromDB,
+    updateAcademicSemesterIntoDb
 }
