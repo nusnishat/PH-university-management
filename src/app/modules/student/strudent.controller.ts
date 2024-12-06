@@ -24,7 +24,7 @@ import catchAsync from "../../utils/catchAsync";
 
 
 const getStudents: RequestHandler = catchAsync(async(req, res, next)=>{
-    const result = await StudentServices.getStudentsFromDB();
+    const result = await StudentServices.getStudentsFromDB(req.query);
     sendResponse(res, {
         statusCode: 200,
         success: true,
