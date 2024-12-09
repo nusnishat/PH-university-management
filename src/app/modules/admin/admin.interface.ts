@@ -1,3 +1,4 @@
+
 import { Model, Types } from 'mongoose';
 
 export type TGender = 'male' | 'female' | 'other';
@@ -17,7 +18,7 @@ export type TUserName = {
   lastName: string;
 };
 
-export type TAcademicFaculty = {
+export type TAdmin = {
   id: string;
   user: Types.ObjectId;
   designation: string;
@@ -31,10 +32,9 @@ export type TAcademicFaculty = {
   presentAddress: string;
   permanentAddress: string;
   profileImg?: string;
-  academicDepartment: Types.ObjectId;
   isDeleted: boolean;
 };
 
-export interface AcademicFacultyModel extends Model<TAcademicFaculty> {
-  isUserExists(id: string): Promise<TAcademicFaculty | null>;
+export interface AdminModel extends Model<TAdmin> {
+  isUserExists(id: string): Promise<TAdmin | null>;
 }
