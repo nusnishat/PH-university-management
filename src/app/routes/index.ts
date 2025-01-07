@@ -6,6 +6,7 @@ import { AcademicFacultyRoutes } from "../modules/academicFaculty/academicFacult
 import { AcademicDepartmentRoutes } from "../modules/academicDepartment/academicDepartment.route";
 import { AdminRoutes } from "../modules/admin/admin.route";
 import { CourseRoutes } from "../modules/course/course.route";
+import { AuthRoutes } from "../modules/auth/auth.route";
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use('/academic-faculty', AcademicFacultyRoutes);
 router.use('/academic-department', AcademicDepartmentRoutes);
 router.use('/admins', AdminRoutes);
 router.use('/courses', CourseRoutes);
+router.use('/auth', AuthRoutes);
 
 export default router;

@@ -60,10 +60,24 @@ const deleteCourse = catchAsync(async (req, res) => {
   });
 });
 
+const assignFaculties = catchAsync(async (req, res) => {
+  const courseId = req.params.courseID;
+  const faculties = req.body.faculties;
+  const result = await CourseServices.assignFacultiesIntoDb(courseId, faculties);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Faculties are assigned succesfully',
+    data: result,
+  });
+});
+
 export const CourseControllers = {
   createCourse,
   getAllCourses,
   getSingleCourse,
   deleteCourse,
-  updateCourse
+  updateCourse,
+  assignFaculties
 };

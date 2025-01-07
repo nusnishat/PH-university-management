@@ -1,6 +1,6 @@
 
 import QueryBuilder from "../../builder/QueryBuilder";
-import { TCourse } from "./course.interface";
+import { TCourse, TCoursefaculty } from "./course.interface";
 import { Course } from "./course.model"
 import { searchableField } from "../student/student.constant";
 import mongoose from "mongoose";
@@ -111,10 +111,23 @@ const updateCourseIntoDb = async (id: string, payload: Partial<TCourse>) => {
     }
 };
 
+const assignFacultiesIntoDb = async(id: string, payload: Partial<TCoursefaculty>)=>{
+    const result = Course.findByIdAndUpdate(
+        id,
+        {$addToSet: {facuties: {$each: payload}}},
+        {   
+            upsert: true,
+            new: true
+        }
+    );
+    return result;
+};
+
 export const CourseServices = {
     createCourseIntoDb,
     getAllCourseFromDb,
     getSingleCourseFrom,
     deleteCourseFromDb,
-    updateCourseIntoDb
+    updateCourseIntoDb,
+    assignFacultiesIntoDb
 }
